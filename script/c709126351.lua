@@ -1,6 +1,15 @@
 --鬼ガエル
 --Swap Frog
+
+-- BUGS: 
+-- if additional summon is performed, effect cannot be activated again
+-- 
+-- s = card
+-- tp = turn player
+-- 
+
 local s,id=GetID()
+local used=false
 function s.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)
@@ -91,7 +100,7 @@ function s.extg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanSummon(tp) and Duel.IsPlayerCanAdditionalSummon(tp) end
 end
 function s.exop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetFlagEffect(tp,id)==1 then return end
+	if used==false then return end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetDescription(aux.Stringid(id,2))
@@ -100,7 +109,8 @@ function s.exop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetTarget(s.estg)
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
-	Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
+	used=true
+	--Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
 end
 function s.estg(e,c)
 	return c:IsSetCard(0x12) and c:GetCode()~=id
