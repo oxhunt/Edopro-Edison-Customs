@@ -1,6 +1,7 @@
 --プランキッズ・ウェザー
 --Prank-Kids Weather Washer
 --Scripted by Eerie Code
+-- the s is the card, id is its id
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -23,7 +24,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1,id)
+	e2:SetCountLimit(4,id)
 	e2:SetHintTiming(0,TIMINGS_CHECK_MONSTER_E+TIMING_MAIN_END)
 	e2:SetCondition(s.spcon)
 	e2:SetCost(aux.CostWithReplace(s.spcost,CARD_PRANKKIDS_MEOWMU,s.spcostextracon))
