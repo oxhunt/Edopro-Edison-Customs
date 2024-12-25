@@ -91,17 +91,16 @@ function s.extg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanSummon(tp) and Duel.IsPlayerCanAdditionalSummon(tp) end
 end
 function s.exop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetFlagEffect(tp,id)==0 then
-		local e1=Effect.CreateEffect(e:GetHandler())
-		e1:SetType(EFFECT_TYPE_FIELD)
-		e1:SetDescription(aux.Stringid(id,2))
-		e1:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
-		e1:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
-		e1:SetTarget(s.estg)
-		e1:SetReset(RESET_PHASE+PHASE_END)
-		Duel.RegisterEffect(e1,tp)
-		Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
-	end
+	if Duel.GetFlagEffect(tp,id)==1 then return end
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetDescription(aux.Stringid(id,2))
+	e1:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
+	e1:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
+	e1:SetTarget(s.estg)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	Duel.RegisterEffect(e1,tp)
+	Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
 end
 function s.estg(e,c)
 	return c:IsSetCard(0x12) and c:GetCode()~=id
