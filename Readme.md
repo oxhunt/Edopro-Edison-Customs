@@ -10,3 +10,13 @@ every card has its original id which has been modified by making it 9 digits lon
 examples:
 - 9126351  -> 709126351
 - 44509529 -> 744509529
+
+
+```
+{
+    "url": "https://github.com/oxhunt/Edopro-Edison-Customs",
+    "repo_name": "Edison Cards",
+    "should_update": true,
+    "should_read": true
+}
+```
