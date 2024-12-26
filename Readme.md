@@ -12,6 +12,9 @@ examples:
 - 44509529 -> 744509529
 
 
+# How to apply these modifications to your EdoPro
+Add these to the config.json file.
+
 ```
 {
     "url": "https://github.com/oxhunt/Edopro-Edison-Customs",
