@@ -1,5 +1,8 @@
 --スターダスト・ドラゴン
 --Stardust Dragon
+
+-- the default stardust from edopro does not negate other stardust, tytannial, doomcaliber knight or other cards that negate activation, even if they destroy a card on the field
+
 local s,id=GetID()
 function s.initial_effect(c)
 	--synchro summon

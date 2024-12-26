@@ -92,7 +92,7 @@ end
 function s.excost(e,tp,eg,ep,ev,re,r,rp,chk)
 	-- chk seems to say that the simulator is in a phase where the effect can be applied
 	--if chk==0 then return Duel.GetFlagEffect(tp,id)==0 and Duel.IsExistingMatchingCard(Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,nil) end
-	Debug.ShowHint("chk, flag, IsExistingMatchingCard, additional_summon_performed: "..tostring(chk)..", "..tostring(Duel.GetFlagEffect(tp,id)==0)..", "..tostring(Duel.IsExistingMatchingCard(Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,nil))..", "..tostring(additional_summon_performed))
+	--Debug.ShowHint("chk, flag, IsExistingMatchingCard, additional_summon_performed: "..tostring(chk)..", "..tostring(Duel.GetFlagEffect(tp,id)==0)..", "..tostring(Duel.IsExistingMatchingCard(Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,nil))..", "..tostring(additional_summon_performed))
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
 	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,1,nil)
