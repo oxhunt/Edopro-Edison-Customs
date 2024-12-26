@@ -9,7 +9,7 @@
 -- 
 
 local s,id=GetID()
-local used=false
+local additional_summon_performed=false
 function s.initial_effect(c)
 	--special summon
 	local e1=Effect.CreateEffect(c)
@@ -90,26 +90,31 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.excost(e,tp,eg,ep,ev,re,r,rp,chk)
+	-- chk seems to say that the simulator is in a phase where the effect can be applied
 	--if chk==0 then return Duel.GetFlagEffect(tp,id)==0 and Duel.IsExistingMatchingCard(Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,nil) end
+	Debug.ShowHint("chk, flag, IsExistingMatchingCard, additional_summon_performed: "..tostring(chk)..", "..tostring(Duel.GetFlagEffect(tp,id)==0)..", "..tostring(Duel.IsExistingMatchingCard(Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,nil))..", "..tostring(additional_summon_performed))
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
 	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToHandAsCost,tp,LOCATION_MZONE,0,1,1,nil)
 	Duel.SendtoHand(g,nil,REASON_COST)
 end
 function s.extg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsPlayerCanSummon(tp) and Duel.IsPlayerCanAdditionalSummon(tp) end
+	--if chk==0 then return Duel.IsPlayerCanSummon(tp) and Duel.IsPlayerCanAdditionalSummon(tp) end
+	if chk==0 then return Duel.IsPlayerCanSummon(tp) end
 end
 function s.exop(e,tp,eg,ep,ev,re,r,rp)
+	if additional_summon_performed then return end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetDescription(aux.Stringid(id,2))
 	e1:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
 	e1:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
 	e1:SetTarget(s.estg)
-	e1:SetCountLimit(1)
-	e1:SetReset(RESET_PHASE+PHASE_END)
+	--e1:SetCountLimit(1)
+	--e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
-	Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
+	--Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
+	additional_summon_performed=true
 end
 function s.estg(e,c)
 	return c:IsSetCard(0x12) and c:GetCode()~=id
